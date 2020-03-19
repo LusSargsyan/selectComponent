@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="item-content">
+    <div class="input-container">
+        <ng-container *ngIf="searchEnabled">
+          <input
+            class="texteditor-input" 
+            type="type" 
+            name="name" 
+            value="{{activeOption.value && isOpened ? activeOption.label : currentSelection?.label}}" 
+            (click)="onClick($event)" 
+            (input)="search($event)" 
+            (keydown)="keyPress($event)" 
+            (keydown.enter)="selectOption()" 
+            autocomplete="off"
+            placeholder="{{placeholder}}"
+          />
+        </ng-container> 
+  
+      <ng-container  *ngIf="!searchEnabled">
+        <div 
+          class="select-container"
+          (keydown)="keyPress($event)" 
+          (keydown.enter)="selectOption()" 
+          (click)="onClick($event)" 
+        >
+          <input 
+            class="texteditor-input" 
+            type="type" 
+            name="name" 
+            value="{{activeOption.value && isOpened ? activeOption.label : currentSelection?.label}}"
+            autocomplete="off"
+            readonly
+            placeholder="{{placeholder}}"
+          />
+        </div>
+      </ng-container>
+  
+      <div
+        class="remove-icon-container"
+        *ngIf="currentSelection?.label" 
+        (click)="removeSelected($event)"
+      >
+        x
+      </div>
+      <div class="toggle-icon-container">
+        <div *ngIf="isOpened">
+          ^
+        </div>
+        <div *ngIf="!isOpened">
+          ^
+        </div>
+      </div>
+    </div>
+  
+    <div class="select-options" *ngIf="isOpened">
+      <div 
+        (click)="setCurrentSelection(option, $event)" 
+        (keydown)="keyPress(option)" 
+        (keydown.enter)="selectOption()"  
+        *ngFor="let option of options; let i = index" 
+        [ngClass]="{
+          'select-option': true,
+          'selected': currentSelection?.value == option.value,
+          'active': activeOption?.value == option.value
+        }"
+      >
+        {{option?.label}}
+      </div>
+    </div>
+
+  </div>
+</div>
+

@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="wrapper">
+    <app-select 
+      [options]="options" 
+      [(currentSelection)]="currentSelection" 
+      placeholder="Typetypi"
+      [searchEnabled]="true"
+      (onClosed)="onClosed($event)" 
+      (onOpened)= "onOpened($event)"
+      (onItemClick)="onItemClick($event)"
+
+    >
+    </app-select>
+  </div>
+</div>
